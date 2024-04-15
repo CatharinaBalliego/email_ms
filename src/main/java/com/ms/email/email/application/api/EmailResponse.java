@@ -6,10 +6,11 @@ import jakarta.persistence.Column;
 import lombok.Value;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Value
 public class EmailResponse {
-    private Long emailId;
+    private UUID emailId;
     private String ownerRef;
     private String emailFrom;
     private String emailTo;
