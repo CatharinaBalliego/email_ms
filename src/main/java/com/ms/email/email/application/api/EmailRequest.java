@@ -4,10 +4,16 @@ import jakarta.persistence.Column;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Value;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Value
-public class EmailRequest {
+@Getter
+@Setter
+//@Builder
+@NoArgsConstructor(force = true)
+public class EmailRequest implements Serializable {
     @NotBlank
     private String ownerRef;
     @NotBlank

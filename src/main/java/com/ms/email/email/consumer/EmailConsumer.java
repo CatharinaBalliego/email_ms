@@ -1,5 +1,8 @@
 package com.ms.email.email.consumer;
 
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ms.email.email.application.api.EmailRequest;
 import com.ms.email.email.application.api.EmailResponse;
 import com.ms.email.email.application.service.EmailService;
@@ -18,8 +21,9 @@ public class EmailConsumer {
     private EmailService emailService;
 
     @RabbitListener(queues = "${spring.rabbitmq.queue}")
-    public void listen(@Payload EmailRequest emailRequest){
+    public void listen(String message) throws JsonProcessingException {
         log.info("[start] EmailConsumer");
+        EmailRequest emailRequest = new ObjectMapper().readValue(message, EmailRequest.class);
         EmailResponse emailResponse = emailService.sendEmail(emailRequest);
         log.info("Email status: " + emailResponse.getStatusEmail());
     }
